@@ -2,43 +2,46 @@
 
 BoxLayout:
     orientation: "vertical"
-    padding: 10
-    spacing: 10
+    padding: dp(10)
+    spacing: dp(10)
 
     Label:
         text: "Python Code Runner"
         size_hint_y: None
-        height: 35
+        height: dp(45)
         bold: True
-        font_size: 22
+        font_size: "28sp"
 
     TextInput:
         id: code_input
         text: "# Paste Python code here\n\nprint('Hello!')\n\nfor i in range(3):\n    print(i)\n"
-        font_size: 16
+        font_size: "22sp"
         multiline: True
         size_hint_y: 0.55
 
     BoxLayout:
         orientation: "horizontal"
         size_hint_y: None
-        height: 50
-        spacing: 10
+        height: dp(60)
+        spacing: dp(10)
 
         Button:
             text: "Run"
             bold: True
+            font_size: "22sp"
             on_release: app.run_code()
 
         Button:
             text: "Clear output"
+            font_size: "22sp"
             on_release: app.clear_output()
 
     Label:
         text: "Output:"
         size_hint_y: None
-        height: 25
+        height: dp(35)
         bold: True
+        font_size: "22sp"
         halign: "left"
         valign: "middle"
         text_size: self.width, self.height
@@ -47,6 +50,6 @@ BoxLayout:
         id: output_area
         text: "Ready."
         readonly: True
-        font_size: 14
+        font_size: "20sp"
         multiline: True
         size_hint_y: 0.45
