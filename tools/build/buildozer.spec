@@ -20,21 +20,6 @@ requirements = python3,kivy,pyjnius,android,requests,urllib3
 orientation = portrait
 
 # 预注册 10 个服务槽位（全部 foreground:sticky）
-services =
-    Slot0:services/service_slot.py:foreground:sticky
-    Slot1:services/service_slot.py:foreground:sticky
-    Slot2:services/service_slot.py:foreground:sticky
-    Slot3:services/service_slot.py:foreground:sticky
-    Slot4:services/service_slot.py:foreground:sticky
-    Slot5:services/service_slot.py:foreground:sticky
-    Slot6:services/service_slot.py:foreground:sticky
-    Slot7:services/service_slot.py:foreground:sticky
-    Slot8:services/service_slot.py:foreground:sticky
-    Slot9:services/service_slot.py:foreground:sticky
-    Slot10:services/service_slot.py:sticky
-    Slot11:services/service_slot.py:sticky
-    Slot12:services/service_slot.py:sticky
-    Slot13:services/service_slot.py:sticky
 
 # 图标（自动使用项目中的 icon.png，无需在此指定）
 # icon.filename = %(source.dir)s/icon.png
@@ -49,7 +34,7 @@ android.presplash_color = #39C5BB
 android.permissions =
     INTERNET,
     READ_EXTERNAL_STORAGE,
-    WRITE_EXTERNAL_STORAGE
+    WRITE_EXTERNAL_STORAGE, 
     MANAGE_EXTERNAL_STORAGE,
     FOREGROUND_SERVICE,
     WAKE_LOCK,
