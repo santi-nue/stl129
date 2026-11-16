@@ -10,11 +10,6 @@ import threading
 from kivy import platform
 from kivy.app import App
 from kivy.clock import Clock
-from kivy.metrics import dp, sp
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
 
 
 # Set a desktop window size only on desktop platforms.
@@ -25,73 +20,16 @@ if platform not in ("android", "ios"):
 
 
 class PythonCodeRunnerApp(App):
-    def build(self):
-        self.title = "Python Code Runner"
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self._running = False
 
-        root = BoxLayout(
-            orientation="vertical",
-            padding=dp(10),
-            spacing=dp(10)
-        )
-
-        # Code input area
-        self.code_input = TextInput(
-            text=(
-                "# Paste Python code here, then press Run code\n"
-                "print('Hello from Kivy!')\n"
-                "\n"
-                "for i in range(3):\n"
-                "    print(i)\n"
-            ),
-            font_size=sp(16),
-            multiline=True,
-            size_hint=(1, 0.55)
-        )
-        root.add_widget(self.code_input)
-
-        # Run button
-        run_button = Button(
-            text="Run code",
-            size_hint=(1, None),
-            height=dp(48),
-            bold=True
-        )
-        run_button.bind(on_press=self.run_code)
-        root.add_widget(run_button)
-
-        # Output label
-        output_label = Label(
-            text="Output:",
-            size_hint=(1, None),
-            height=dp(24),
-            bold=True,
-            halign="left",
-            valign="middle"
-        )
-        output_label.bind(size=lambda instance, value: setattr(
-            instance, "text_size", (instance.width, instance.height)
-        ))
-        root.add_widget(output_label)
-
-        # Output area
-        self.output = TextInput(
-            readonly=True,
-            font_size=sp(14),
-            multiline=True,
-            text="Ready.",
-            size_hint=(1, 0.45)
-        )
-        root.add_widget(self.output)
-
-        return root
-
-    def run_code(self, instance):
+    def run_code(self):
         if self._running:
             self.set_output("Already running. Please wait...")
             return
 
-        code = self.code_input.text
+        code = self.root.ids.code_input.text
 
         if not code.strip():
             self.set_output("Please paste some Python code first.")
@@ -107,6 +45,9 @@ class PythonCodeRunnerApp(App):
             daemon=True
         )
         thread.start()
+
+    def clear_output(self):
+        self.set_output("Output cleared.")
 
     def execute_code(self, code):
         output_buffer = io.StringIO()
@@ -141,7 +82,11 @@ class PythonCodeRunnerApp(App):
 
     def set_output(self, text):
         # Kivy UI widgets must be changed on the main thread.
-        Clock.schedule_once(lambda dt: setattr(self.output, "text", text))
+        Clock.schedule_once(lambda dt: setattr(
+            self.root.ids.output_area,
+            "text",
+            text
+        ))
 
 
 if __name__ == "__main__":
