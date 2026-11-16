@@ -1,3 +1,42 @@
+Example:    paste this:
+
+
+```python
+
+import os
+from jnius import autoclass
+
+# Get Android's Download folder
+Environment = autoclass("android.os.Environment")
+downloads = Environment.getExternalStoragePublicDirectory(
+    Environment.DIRECTORY_DOWNLOADS
+)
+
+# Full path: /storage/emulated/0/Download/kivy_test.txt
+file_path = os.path.join(
+    downloads.getAbsolutePath(),
+    "kivy_test.txt"
+)
+
+print("File path:")
+print(file_path)
+
+# Write to the file
+with open(file_path, "w", encoding="utf-8") as file:
+    file.write("Hello Kivy!")
+
+# Read the file back
+with open(file_path, "r", encoding="utf-8") as file:
+    text = file.read()
+
+print("\nRead from file:")
+print(text)
+
+```
+
+
+
+
 # Kivy Launcher
 
 (work in progress, not yet published on Google Play)
