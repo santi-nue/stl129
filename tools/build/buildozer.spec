@@ -56,9 +56,9 @@ android.permissions =
     REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
 
 # Target Android 10 (API 29)
-android.api = 28
-android.minapi = 21
-android.ndk = 25b
+#android.api = 28
+#android.minapi = 21
+#android.ndk = 25b
 android.archs = armeabi-v7a
 
 # 其他
