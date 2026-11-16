@@ -59,7 +59,7 @@ android.permissions =
 android.api = 28
 android.minapi = 21
 android.ndk = 25b
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = armeabi-v7a
 
 # 其他
 android.allow_backup = True
