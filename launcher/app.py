@@ -5,12 +5,11 @@ from kivy.lang import Builder
 from kivy.app import App
 
 
-# Load the KV file explicitly.
-# This must match the location of app.kv.
-Builder.load_file("launcher/app.kv")
-
-
 class LauncherApp(App):
+    def build(self):
+        # Load the KV file and RETURN its root widget.
+        return Builder.load_file("launcher/app.kv")
+
     def say_hello(self):
         self.root.ids.output.text = "Button pressed!"
 
