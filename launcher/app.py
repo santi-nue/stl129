@@ -12,6 +12,30 @@ from kivy.app import App
 from kivy.clock import Clock
 
 
+import os
+import re
+from datetime import datetime
+from kivy.lang import Builder
+from kivy.app import App
+from kivy.utils import platform
+from kivy.properties import ListProperty, BooleanProperty, DictProperty
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from glob import glob
+from os.path import dirname, join, exists
+import traceback
+
+Builder.load_file("launcher/app.kv")
+
+KIVYLAUNCHER_PATHS = os.environ.get("KIVYLAUNCHER_PATHS")
+
+
+
+
+
 # Set a desktop window size only on desktop platforms.
 # Do not force a size on Android; Android controls the app window.
 if platform not in ("android", "ios"):
