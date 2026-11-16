@@ -1,4 +1,4 @@
-Example:    paste this:
+Example wr rd in file:    paste this:
 
 
 ```python
@@ -34,8 +34,27 @@ print(text)
 
 ```
 
+Example list libs installed:    paste this:
 
+```python
 
+from importlib.metadata import distributions
+
+packages = []
+
+for package in distributions():
+    name = package.metadata["Name"]
+    version = package.metadata["Version"]
+    packages.append(f"{name} {version}")
+
+packages.sort()
+
+print(f"Installed packages: {len(packages)}\n")
+
+for package in packages:
+    print(package)
+
+```
 
 # Kivy Launcher
 
