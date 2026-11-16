@@ -13,6 +13,10 @@ BoxLayout:
         text: "Press me"
         on_release: app.say_hello()
 
+    Button:
+        text: "Clear"
+        on_release: app.clear_output()
+
     Label:
         id: output
         text: "Waiting..."
