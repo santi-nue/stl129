@@ -1,0 +1,141 @@
+# launcher/app.kv
+#:import Factory kivy.factory.Factory
+
+<ProjectListScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            spacing: dp(10)
+            Button:
+                text: 'Refresh'
+                on_release: root.refresh_entries()
+            Button:
+                text: 'Config'
+                on_release: app.open_config_editor()
+
+        RecycleView:
+            id: rv
+            viewclass: 'ProjectItem'
+            RecycleBoxLayout:
+                default_size: None, dp(80)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+
+        ScrollView:
+            size_hint_y: None
+            height: dp(100) if root.display_logs else 0
+            GridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                Label:
+                    text: '\\n'.join(root.logs)
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+<ProjectItem@BoxLayout>:
+    orientation: 'horizontal'
+    padding: dp(10)
+    spacing: dp(10)
+    AsyncImage:
+        source: ctx.data_logo
+        size_hint_x: None
+        width: dp(64)
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: ctx.data_title
+            font_size: '16sp'
+            halign: 'left'
+            text_size: self.size
+        Label:
+            text: f"Author: {ctx.data_author}" if ctx.data_author else ""
+            font_size: '12sp'
+            color: .5, .5, .5, 1
+        Label:
+            text: f"Path: {ctx.data_path}"
+            font_size: '10sp'
+            color: .3, .3, .3, 1
+    Button:
+        text: 'Run'
+        size_hint_x: None
+        width: dp(80)
+        on_release: app.root.get_screen('project_list').start_activity(ctx.data_entry)
+
+<ConfigEditorScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
+
+        Label:
+            text: 'Packman Config Editor'
+            font_size: '20sp'
+            size_hint_y: None
+            height: dp(40)
+            halign: 'center'
+
+        ScrollView:
+            GridLayout:
+                cols: 2
+                spacing: [dp(10), dp(15)]
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: dp(40)
+                row_force_default: True
+
+                Label:
+                    text: 'Termux Repo:'
+                    halign: 'right'
+                    size_hint_y: None
+                    height: dp(40)
+                TextInput:
+                    id: termux_repo
+                    text: root.config.get('termux_repo', '')
+                    multiline: False
+                    size_hint_y: None
+                    height: dp(40)
+                    padding: [dp(10), dp(5)]
+
+                Label:
+                    text: 'PyPI Index URL:'
+                    halign: 'right'
+                    size_hint_y: None
+                    height: dp(40)
+                TextInput:
+                    id: pypi_index
+                    text: root.config.get('pypi_index_url', '')
+                    multiline: False
+                    size_hint_y: None
+                    height: dp(40)
+                    padding: [dp(10), dp(5)]
+
+                Label:
+                    text: 'Trusted Host:'
+                    halign: 'right'
+                    size_hint_y: None
+                    height: dp(40)
+                TextInput:
+                    id: trusted_host
+                    text: root.config.get('pypi_trusted_host', '')
+                    multiline: False
+                    size_hint_y: None
+                    height: dp(40)
+                    padding: [dp(10), dp(5)]
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            spacing: dp(10)
+            padding: [0, dp(10)]
+            Button:
+                text: 'Save'
+                on_release: root.save_config()
+            Button:
+                text: 'Cancel'
+                on_release: app.go_back()
