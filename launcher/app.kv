@@ -2,22 +2,51 @@
 
 BoxLayout:
     orientation: "vertical"
-    padding: 20
-    spacing: 20
+    padding: 10
+    spacing: 10
 
     Label:
-        text: "Basic Kivy Test"
-        font_size: 30
+        text: "Python Code Runner"
+        size_hint_y: None
+        height: 35
+        bold: True
+        font_size: 22
 
-    Button:
-        text: "Press me"
-        on_release: app.say_hello()
+    TextInput:
+        id: code_input
+        text: "# Paste Python code here\n\nprint('Hello!')\n\nfor i in range(3):\n    print(i)\n"
+        font_size: 16
+        multiline: True
+        size_hint_y: 0.55
 
-    Button:
-        text: "Clear"
-        on_release: app.clear_output()
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        height: 50
+        spacing: 10
+
+        Button:
+            text: "Run"
+            bold: True
+            on_release: app.run_code()
+
+        Button:
+            text: "Clear output"
+            on_release: app.clear_output()
 
     Label:
-        id: output
-        text: "Waiting..."
-        font_size: 25
+        text: "Output:"
+        size_hint_y: None
+        height: 25
+        bold: True
+        halign: "left"
+        valign: "middle"
+        text_size: self.width, self.height
+
+    TextInput:
+        id: output_area
+        text: "Ready."
+        readonly: True
+        font_size: 14
+        multiline: True
+        size_hint_y: 0.45
