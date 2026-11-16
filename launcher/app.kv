@@ -1,0 +1,55 @@
+#:kivy 2.3
+
+BoxLayout:
+    orientation: "vertical"
+    padding: dp(10)
+    spacing: dp(10)
+
+    Label:
+        text: "Python Code Runner"
+        size_hint_y: None
+        height: dp(35)
+        bold: True
+        font_size: sp(20)
+        color: 1, 1, 1, 1
+
+    TextInput:
+        id: code_input
+        text: "# Paste Python code here, then press Run code\n\nprint('Hello from Kivy!')\n\nfor i in range(3):\n    print(i)\n"
+        font_size: sp(16)
+        multiline: True
+        size_hint_y: 0.55
+
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        height: dp(50)
+        spacing: dp(10)
+
+        Button:
+            text: "Run code"
+            bold: True
+            font_size: sp(16)
+            on_release: app.run_code()
+
+        Button:
+            text: "Clear output"
+            font_size: sp(16)
+            on_release: app.clear_output()
+
+    Label:
+        text: "Output:"
+        size_hint_y: None
+        height: dp(25)
+        bold: True
+        halign: "left"
+        valign: "middle"
+        text_size: self.width, self.height
+
+    TextInput:
+        id: output_area
+        text: "Ready."
+        readonly: True
+        font_size: sp(14)
+        multiline: True
+        size_hint_y: 0.45
