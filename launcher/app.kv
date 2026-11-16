@@ -10,12 +10,12 @@ BoxLayout:
         size_hint_y: None
         height: dp(45)
         bold: True
-        font_size: "28sp"
+        font_size: "18sp"
 
     TextInput:
         id: code_input
         text: "# Paste Python code here\n\nprint('Hello!')\n\nfor i in range(3):\n    print(i)\n"
-        font_size: "22sp"
+        font_size: "12sp"
         multiline: True
         size_hint_y: 0.55
 
@@ -28,12 +28,12 @@ BoxLayout:
         Button:
             text: "Run"
             bold: True
-            font_size: "22sp"
+            font_size: "12sp"
             on_release: app.run_code()
 
         Button:
             text: "Clear output"
-            font_size: "22sp"
+            font_size: "12sp"
             on_release: app.clear_output()
 
     Label:
@@ -41,7 +41,7 @@ BoxLayout:
         size_hint_y: None
         height: dp(35)
         bold: True
-        font_size: "22sp"
+        font_size: "12sp"
         halign: "left"
         valign: "middle"
         text_size: self.width, self.height
@@ -50,6 +50,6 @@ BoxLayout:
         id: output_area
         text: "Ready."
         readonly: True
-        font_size: "20sp"
+        font_size: 10sp"
         multiline: True
         size_hint_y: 0.45
