@@ -1,3 +1,74 @@
+
+Example create jpg:    paste this:
+
+
+```python
+
+from pathlib import Path
+from PIL import Image
+import os 
+from jnius import autoclass # Get Android's Pictures folder
+
+Environment = autoclass("android.os.Environment")
+
+pictures_dir = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DOWNLOADS )
+
+INPUT_DIR = os.path.join(pictures_dir.getAbsolutePath() ,"Screenshots" )
+
+OUTPUT_DIR = Path(pictures_dir.getAbsolutePath()) / "output"
+
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+cropped_images = []
+
+combined_path = os.path.join(OUTPUT_DIR, "out.jpg" )
+
+for file_name in sorted(os.listdir(INPUT_DIR)):
+    if not file_name.lower().endswith(".jpg"):
+        continue
+
+    image_path = os.path.join(INPUT_DIR, file_name)
+    output_path = os.path.join(OUTPUT_DIR, file_name)
+
+    with Image.open(image_path) as img:
+        cropped = img.crop((0, 75, img.width, 270))
+
+        if cropped.mode != "RGB":
+            cropped = cropped.convert("RGB")
+
+        cropped.save(output_path, "JPEG", quality=95)
+
+        cropped_images.append(cropped)
+
+if cropped_images:
+    target_width = cropped_images[0].width
+
+    resized_images = []
+
+    for image in cropped_images:
+        if image.width != target_width:
+            new_height = round(image.height * target_width / image.width)
+            image = image.resize((target_width, new_height))
+
+        resized_images.append(image)
+
+    total_width = target_width
+    total_height = sum(image.height for image in resized_images)
+
+    combined = Image.new("RGB", (total_width, total_height), "white")
+
+    y_position = 0
+
+    for image in resized_images:
+        combined.paste(image, (0, y_position))
+        y_position += image.height
+
+    combined.save(combined_path, "JPEG", quality=95)
+
+print("end program") 
+
+```
+
 Example wr rd in file:    paste this:
 
 
