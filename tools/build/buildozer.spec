@@ -14,7 +14,7 @@ version = 1.0
 android.numeric_version = 1
 
 # Launcher 自身依赖（用户项目依赖由 packman 运行时安装）
-requirements = python3,kivy,pyjnius,android,requests,urllib3
+requirements = python3,kivy,pyjnius,android,requests,pillow,urllib3
 
 # 方向
 orientation = portrait
